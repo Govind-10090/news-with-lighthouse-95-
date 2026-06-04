@@ -90,7 +90,9 @@ self.addEventListener('fetch', (event) => {
     requestUrl.origin.includes('fonts.googleapis.com') ||
     requestUrl.pathname.endsWith('.png') ||
     requestUrl.pathname.endsWith('.svg') ||
-    requestUrl.pathname.endsWith('.css')
+    requestUrl.pathname.endsWith('.css') ||
+    event.request.destination === 'image' ||
+    requestUrl.pathname.match(/\.(jpg|jpeg|webp|gif|png|svg)($|\?)/i)
   ) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {

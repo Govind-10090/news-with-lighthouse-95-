@@ -68,6 +68,7 @@ export const UI = {
       ${loadingAttr} 
       ${fetchPriorityAttr} 
       decoding="async" 
+      referrerpolicy="no-referrer"
       onerror="this.onerror=null; this.src='${fallback}';"
       width="${width}" 
       height="${height}"
