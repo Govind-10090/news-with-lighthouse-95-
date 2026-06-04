@@ -184,7 +184,7 @@ export function mount(container, navigate) {
       cardEl.setAttribute('tabindex', '0');
       cardEl.innerHTML = `
         <div class="card-img-wrapper">
-          <img class="card-img" src="${art.image}" alt="${art.title}" loading="lazy" width="100%" height="auto">
+          ${UI.renderImage({ src: art.image, alt: art.title, className: 'card-img' })}
         </div>
         <div class="card-category">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 2px;"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z"/></svg>

@@ -38,7 +38,7 @@ export function mount(container, navigate) {
           <!-- Lead Story -->
           <article class="lead-story editorial-card" id="lead-story-card" tabindex="0">
             <div class="card-img-wrapper">
-              <img class="card-img" src="${data.lead.image}" alt="Lead story landscape" width="100%" height="auto">
+              ${UI.renderImage({ src: data.lead.image, alt: 'Lead story landscape', className: 'card-img', lazy: false, fetchPriority: 'high' })}
             </div>
             <div class="card-category">${data.lead.category}</div>
             <h2 class="card-title">${data.lead.title}</h2>
@@ -75,7 +75,7 @@ export function mount(container, navigate) {
               <div class="opinion-card" tabindex="0" data-opinion-idx="${idx}">
                 <p class="opinion-quote">"${opinion.quote}"</p>
                 <div class="opinion-author-meta">
-                  <img class="opinion-avatar" src="${opinion.avatar}" alt="${opinion.author}" loading="lazy" width="28" height="28">
+                  ${UI.renderImage({ src: opinion.avatar, alt: opinion.author, className: 'opinion-avatar', isAvatar: true, width: '28', height: '28' })}
                   <span class="opinion-author-name">${opinion.author}</span>
                 </div>
               </div>
@@ -136,7 +136,7 @@ export function mount(container, navigate) {
       cardEl.setAttribute('tabindex', '0');
       cardEl.innerHTML = `
         <div class="card-img-wrapper">
-          <img class="card-img" src="${article.image}" alt="${article.title}" loading="lazy" width="100%" height="auto">
+          ${UI.renderImage({ src: article.image, alt: article.title, className: 'card-img' })}
         </div>
         <div class="card-category">
           ${article.premium ? `

@@ -34,7 +34,7 @@ export function mount(container, navigate) {
       contentWrapper.innerHTML = `
         <!-- Interactive Hero Player -->
         <section class="featured-video-player" id="main-player-wrapper">
-          <img class="featured-video-element" src="${featuredVideo.image}" alt="Featured documentary poster" id="player-main-image" width="100%" height="auto">
+          ${UI.renderImage({ src: featuredVideo.image, alt: 'Featured documentary poster', className: 'featured-video-element', id: 'player-main-image', lazy: false, fetchPriority: 'high' })}
           
           <!-- Subtitles Display -->
           <div id="player-subtitles" style="position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); background-color: rgba(0,0,0,0.85); color: #fff; padding: 6px 16px; border-radius: 4px; font-size: 1rem; max-width: 80%; text-align: center; font-weight: 500; display: none; z-index: 10; border: 1px solid rgba(255,255,255,0.15);"></div>
@@ -268,7 +268,7 @@ export function mount(container, navigate) {
         cardEl.setAttribute('tabindex', '0');
         cardEl.innerHTML = `
           <div class="video-thumbnail-wrapper">
-            <img class="video-thumbnail-img" src="${video.image}" alt="${video.title}" loading="lazy" width="100%" height="auto">
+            ${UI.renderImage({ src: video.image, alt: video.title, className: 'video-thumbnail-img' })}
             <div class="video-play-overlay-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
             </div>

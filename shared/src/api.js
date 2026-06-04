@@ -67,7 +67,7 @@ const mockDb = {
         author: 'Dr. Sarah Cho',
         readTime: '7 min read',
         snippet: 'Researchers have initiated gene-editing therapy trials aimed at correcting mutations in retina cells, marking a significant milestone in localized in-vivo genetic medicines.',
-        image: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?w=600&fit=crop&q=80'
+        image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&fit=crop&q=80'
       }
     ]
   },
