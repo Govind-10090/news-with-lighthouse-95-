@@ -1,5 +1,29 @@
 // API Client with Caching, Dynamic Interception, Live NewsAPI proxy, and Offline Capabilities
 
+// Category-based Unsplash fallback images for when urlToImage is missing
+const CATEGORY_IMAGES = {
+  'TECHNOLOGY':     'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&fit=crop&q=80',
+  'SCIENCE':        'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=600&fit=crop&q=80',
+  'CLIMATE':        'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&fit=crop&q=80',
+  'POLITICS':       'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&fit=crop&q=80',
+  'MEDICINE':       'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&fit=crop&q=80',
+  'ARTS':           'https://images.unsplash.com/photo-1541367777708-7905fe3296c0?w=600&fit=crop&q=80',
+  'SPACE':          'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&fit=crop&q=80',
+  'INVESTIGATION':  'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&fit=crop&q=80',
+  'WORLD NEWS':     'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&fit=crop&q=80',
+  'DISPATCH':       'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&fit=crop&q=80',
+  'DEFAULT':        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&fit=crop&q=80'
+};
+
+function getCategoryImage(category) {
+  if (!category) return CATEGORY_IMAGES.DEFAULT;
+  const upper = category.toUpperCase();
+  for (const key of Object.keys(CATEGORY_IMAGES)) {
+    if (upper.includes(key)) return CATEGORY_IMAGES[key];
+  }
+  return CATEGORY_IMAGES.DEFAULT;
+}
+
 // Centralized mock database fallback
 const mockDb = {
   home: {
@@ -326,7 +350,7 @@ class ApiClient {
               author: article.author || 'Staff Reporter',
               readTime: `${Math.round(article.title.split(' ').length / 30) + 3} min read`,
               snippet: article.description || 'Details from the live world coverage update.',
-              image: article.urlToImage || 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&fit=crop&q=80',
+              image: article.urlToImage || getCategoryImage('WORLD NEWS'),
               premium: idx % 3 === 2
             };
             if (!skipCache) this.setCache(cacheKey, mappedFeedItem);
@@ -431,7 +455,7 @@ class ApiClient {
                 duration: `${Math.floor(Math.random() * 15) + 5}:${Math.floor(Math.random() * 50) + 10}`,
                 views: `${Math.floor(Math.random() * 200) + 50}K views`,
                 time: this.calculateTimeAgo(art.publishedAt),
-                image: art.urlToImage || `https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&fit=crop&q=80`
+                image: art.urlToImage || getCategoryImage(art.source?.name || 'DISPATCH')
               });
             });
             
@@ -506,7 +530,7 @@ class ApiClient {
                 author: art.author || 'Marcus Kane',
                 readTime: `${Math.round(art.title.split(' ').length / 30) + 5} min read`,
                 snippet: art.description || 'Details from the premium exclusive investigation update.',
-                image: art.urlToImage || 'https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=600&fit=crop&q=80',
+                image: art.urlToImage || getCategoryImage('INVESTIGATION'),
                 date: new Date(art.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
                 tag: 'CHRONICLE+ EXCLUSIVE',
                 publicParagraphs: [

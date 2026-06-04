@@ -35,27 +35,38 @@ export const UI = {
   IMAGE_FALLBACK: 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(fallbackSvg))),
   AVATAR_FALLBACK: 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(avatarSvg))),
 
-  optimizeImageUrl(url, width) {
+  optimizeImageUrl(url, width, isAvatar = false) {
     if (!url) return '';
+    // Local/relative URLs - pass through unchanged
+    if (url.startsWith('/') || url.startsWith('data:')) return url;
+    // Unsplash images - use native CDN params
     if (url.includes('images.unsplash.com')) {
       try {
         const parsedUrl = new URL(url);
         parsedUrl.searchParams.set('auto', 'format');
+        parsedUrl.searchParams.set('fm', 'webp');
         parsedUrl.searchParams.set('q', '75');
-        if (width) {
-          parsedUrl.searchParams.set('w', width.toString());
-        }
+        if (width) parsedUrl.searchParams.set('w', width.toString());
         return parsedUrl.toString();
       } catch (e) {
         return url;
       }
     }
-    return url;
+    // All other external images (NewsAPI urlToImage from publishers like CNN, BBC, NYT etc.)
+    // Use weserv.nl image proxy to bypass hotlink protection and add CORS support
+    try {
+      const targetUrl = encodeURIComponent(url);
+      const w = width || (isAvatar ? 80 : 600);
+      return `https://images.weserv.nl/?url=${targetUrl}&w=${w}&q=75&output=webp&we`;
+    } catch (e) {
+      return url;
+    }
   },
 
   renderImage({ src, alt, className = '', lazy = true, fetchPriority = 'auto', isAvatar = false, width = '100%', height = 'auto', id = '' }) {
     const fallback = isAvatar ? this.AVATAR_FALLBACK : this.IMAGE_FALLBACK;
-    const optimizedSrc = this.optimizeImageUrl(src, isAvatar ? 80 : 600);
+    const targetWidth = isAvatar ? 80 : 600;
+    const optimizedSrc = this.optimizeImageUrl(src, targetWidth, isAvatar);
     const loadingAttr = lazy ? 'loading="lazy"' : 'loading="eager"';
     const fetchPriorityAttr = fetchPriority !== 'auto' ? `fetchpriority="${fetchPriority}"` : '';
     const idAttr = id ? `id="${id}"` : '';
@@ -67,8 +78,7 @@ export const UI = {
       alt="${alt || 'News image'}" 
       ${loadingAttr} 
       ${fetchPriorityAttr} 
-      decoding="async" 
-      referrerpolicy="no-referrer"
+      decoding="async"
       onerror="this.onerror=null; this.src='${fallback}';"
       width="${width}" 
       height="${height}"
