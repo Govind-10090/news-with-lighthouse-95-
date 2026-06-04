@@ -1,0 +1,42 @@
+{
+  "short_name": "Chronicle",
+  "name": "THE CHRONICLE | Premium Media Portal",
+  "description": "Experience high-end independent journalism, live coverage, dynamic video feeds, and deep investigative premium editorials.",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#090d16",
+  "theme_color": "#0f172a",
+  "display": "standalone",
+  "orientation": "portrait",
+  "shortcuts": [
+    {
+      "name": "Live Blog",
+      "short_name": "Live",
+      "url": "/live",
+      "description": "View live breaking news debates"
+    },
+    {
+      "name": "Video Portal",
+      "short_name": "Video",
+      "url": "/video",
+      "description": "Watch dispatches and documentaries"
+    }
+  ]
+}

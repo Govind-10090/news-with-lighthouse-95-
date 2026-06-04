@@ -1,0 +1,206 @@
+/* ==========================================
+   Live Remote - Realtime timelines & feeds
+   ========================================== */
+
+.live-mfe-container {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.live-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.live-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.live-title-main {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.live-indicator-badge {
+  background-color: var(--accent-live);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: pulse-border 2s infinite;
+}
+
+.live-dot-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  animation: flash 1.2s infinite;
+}
+
+.connection-pulse-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.wifi-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* Floating Realtime Update Banner Alert */
+.realtime-alert-banner {
+  background-color: var(--accent-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255,255,255,0.1);
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.realtime-alert-banner:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Timeline Layout */
+.timeline-container {
+  position: relative;
+  padding-left: 36px;
+  border-left: 2px solid var(--border-color);
+  margin-left: 8px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-node {
+  position: absolute;
+  left: -46px;
+  top: 6px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--bg-primary);
+  border: 3px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.timeline-item.new-alert-item .timeline-node {
+  border-color: var(--accent-live);
+  background-color: var(--accent-live);
+  box-shadow: 0 0 10px var(--accent-live);
+}
+
+.timeline-time-label {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.timeline-content-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.5s ease;
+}
+
+.timeline-item.new-alert-item .timeline-content-card {
+  border-color: var(--accent-live);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+  background-color: var(--bg-secondary);
+}
+
+.timeline-heading {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.timeline-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Critical Bullet Box style */
+.critical-box {
+  background-color: rgba(239, 68, 68, 0.05);
+  border-left: 3px solid var(--accent-live);
+  padding: 12px 16px;
+  margin-top: 12px;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+@media (max-width: 600px) {
+  .live-title-main {
+    font-size: 1.4rem;
+  }
+  .timeline-container {
+    padding-left: 24px;
+  }
+  .timeline-node {
+    left: -34px;
+    width: 14px;
+    height: 14px;
+    top: 8px;
+  }
+}

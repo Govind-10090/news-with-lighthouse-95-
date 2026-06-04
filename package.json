@@ -1,0 +1,22 @@
+{
+  "name": "news-mfe-root",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "shell",
+    "home",
+    "video",
+    "live",
+    "premium",
+    "shared"
+  ],
+  "scripts": {
+    "install-all": "npm install",
+    "dev": "concurrently --kill-others \"npm run dev -w shell\" \"npm run dev -w home\" \"npm run dev -w video\" \"npm run dev -w live\" \"npm run dev -w premium\"",
+    "build": "npm run build -w home && npm run build -w video && npm run build -w live && npm run build -w premium && npm run build -w shell",
+    "preview": "concurrently --kill-others \"npm run preview -w shell\" \"npm run preview -w home\" \"npm run preview -w video\" \"npm run preview -w live\" \"npm run preview -w premium\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
